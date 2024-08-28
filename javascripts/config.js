@@ -1,4 +1,4 @@
-var disqus_shortname = '云猫的小窝';			//Short Name of disqus, this parameter is for disqus comment box.
+var disqus_shortname = 'ccblog-2';			//Short Name of disqus, this parameter is for disqus comment box.
 var hostbase = 'https://smcloudcat.github.io';		//The absolute root address of your blog without '/' in the end.
 var githubname = 'smcloudcat';						//Your username of GitHub.
 var repos = 'smcloudcat.github.io';					//Name of repository that contains your blog.
