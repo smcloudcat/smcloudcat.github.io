@@ -51,7 +51,7 @@ function main(){
 			document.getElementById('takinglonger').style.display = 'none';
 			chktakinglonger();
 			var el = document.createElement('script');
-			el.src = 'https://api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=showlist'+(branch?('&ref='+branch):'');
+			el.src = 'https://proxy.hancat.work/hancat/https/api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=showlist'+(branch?('&ref='+branch):'');
 			document.getElementsByTagName('head')[0].appendChild(el);
 		}
 	}
