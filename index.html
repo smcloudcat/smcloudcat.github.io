@@ -1,86 +1,167 @@
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta content="I write code." name="description">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/loading.css" />
+<html lang="zh-Hans-CN">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta content="I write code." name="description">
 
+  <!-- Layui CSS -->
+  <link rel="stylesheet" href="https://cdn.lwcat.cn/layui/css/layui.css">
+  
+  <!-- Layui JS -->
+  <script src="https://cdn.lwcat.cn/layui/layui.js"></script>
+  
     <script src="javascripts/config.js"></script>
-    <script src="javascripts/base64.js"></script>
-    <script src="javascripts/showdown.js"></script>
-    <!-- Change this to your site title -->
-    <title>Hooloo</title>
-  </head>
+  <script src="javascripts/base64.js"></script>
+  <script src="javascripts/showdown.js"></script>
+  
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-image: url('https://img.czzu.cn/u/yunlayui/TTX7AxMM.png');
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    
+    .content-box {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
 
-  <body>
-    <header>
-      <canvas id="gameoflife"></canvas>
-      <div class="inner">
-        <!-- Change this to your site title -->
-        <a href="/" onclick = "return false"><h1 onclick="home()">Hooloo</h1></a>
-        <span class="searchbar">
-        <input type="text" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
-        </span>
-      </div>
-    </header>
+    header, footer {
+      background: rgba(255, 255, 255, 0.5);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+    }
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <div class="gotop" onclick="goToTop()">
-            <div class="gotopinner">
-              <div class="topleft"></div>
-              <div class="topright"></div>
-              <div class="topbody"></div>
-            </div>
-          </div>
-          <div id="loading">
-            <div class="loading" index="0"></div>
-            <div class="loading" index="1"></div>
-            <div class="loading" index="2"></div>
-            <div class="loading" index="3"></div>
-            <div class="loading" index="4"></div>
-          </div>
-          <a href="/" onclick="return false">
-            <div id="backhome" onclick="home()">
-              <div class="backhome">
-                <div class="backhomeinner">
-                  <div class="backleft"></div>
-                  <div class="backright"></div>
-                  <div class="backbody"></div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <div id="content">
-          </div>
-          <div id="takinglonger"><blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote></div>
-          <div id="disqus_thread" style="display:none"></div>
-        </section>
+    .layui-header h1 {
+      color: white;
+      margin: 0;
+      font-size: 2.5em;
+      font-weight: bold;
+    }
 
-        <aside id="sidebar">
-          <img src="images/hooloo.png" />
-          <p>This blog is based on <a href="https://github.com/sneezry/Hooloo">Hooloo</a> using the Architect theme by <a href="http://sneezry.com">Sneezry</a> based on <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;" src="/images/cc_by-nc-sa.png" /></a>
-        </aside>
-      </div>
-      <footer>Stay hungry, Stay foolish.</footer>
+    .searchbar input {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      display: block;
+      border-radius: 5px;
+    }
+
+    #main-content, #sidebar {
+      padding: 20px;
+    }
+
+    .gotop, #backhome {
+      background-color: #1E9FFF;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .gotop:hover, #backhome:hover {
+      background-color: #009688;
+    }
+
+    #loading div {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #1E9FFF;
+      margin: 5px;
+      border-radius: 50%;
+      animation: loading 1s infinite alternate;
+    }
+
+    @keyframes loading {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.5);
+      }
+    }
+
+    .layui-footer {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    aside img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+
+  <!-- Change this to your site title -->
+  <title>云猫的小窝</title>
+</head>
+
+<body class="layui-layout-body">
+
+  <!-- Header -->
+  <header class="layui-header">
+    <div class="layui-container">
+      <!-- Change this to your site title -->
+      <a href="/" onclick="return false">
+        <h1 onclick="home()">云猫的小窝</h1>
+      </a>
+      <span class="searchbar">
+        <input type="text" class="layui-input" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
+      </span>
     </div>
+  </header>
+
+  <!-- Main Content -->
+  <div id="content-wrapper" class="layui-container content-box">
+    <div class="layui-row">
+      
+      <!-- Main Section -->
+      <section id="main-content" class="layui-col-md8">
+        
+
+        <div id="loading">
+          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="0"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="1"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="2"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="3"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="4"></div>
+        </div>
+
+
+        <div id="content"></div>
+
+        <div id="takinglonger" class="layui-elem-quote">This is taking longer than normal, and there may be some problems in your network.</div>
+
+        <div id="disqus_thread" style="display:none"></div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside id="sidebar" class="layui-col-md4">
+        <p>This blog is based on <a href="https://lwcat.cn">CC的小窝</a> using the Architect theme by <a href="https://lwcat.cn">YunLayui</a>.</p>
+      </aside>
+
+    </div>
+
+    <footer class="layui-footer">Stay hungry, Stay foolish.</footer>
+  </div>
+
+  <!-- Other JS Files -->
   <script src="javascripts/search.js"></script>
   <script src="javascripts/getmd.js"></script>
-  <!--
-  <script src="/javascripts/main.js"></script>
-  -->
   <script src="javascripts/gameoflife.js"></script>
-  </body>
+
+</body>
+
 </html>
