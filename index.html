@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta content="I write code." name="description">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <link rel="stylesheet" type="text/css" href="stylesheets/loading.css" />
 
+    <!-- layui CSS -->
+    <link rel="stylesheet" href="https://cdn.lwcat.cn/layui/css/layui.css" />
 
     <script src="javascripts/config.js"></script>
     <script src="javascripts/base64.js"></script>
@@ -19,28 +21,30 @@
   </head>
 
   <body>
-    <header>
-      <canvas id="gameoflife"></canvas>
-      <div class="inner">
-        <!-- Change this to your site title -->
-        <a href="/" onclick = "return false"><h1 onclick="home()">Hooloo</h1></a>
-        <span class="searchbar">
-        <input type="text" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
-        </span>
+    <header class="layui-header">
+      <div class="layui-container">
+        <a href="/" onclick="return false">
+          <h1 class="layui-text-center" onclick="home()">Hooloo</h1>
+        </a>
+        <div class="layui-input-inline">
+          <input type="text" id="searchbar" class="layui-input" placeholder="Search..." onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
+        </div>
       </div>
     </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <div class="gotop" onclick="goToTop()">
-            <div class="gotopinner">
-              <div class="topleft"></div>
-              <div class="topright"></div>
-              <div class="topbody"></div>
+    <div id="content-wrapper" class="layui-container">
+      <div class="layui-row layui-col-space15">
+        <section id="main-content" class="layui-col-md9">
+          <div class="layui-fixed layui-bg-black">
+            <div class="gotop layui-hide-xs" onclick="goToTop()">
+              <div class="gotopinner">
+                <div class="topleft"></div>
+                <div class="topright"></div>
+                <div class="topbody"></div>
+              </div>
             </div>
           </div>
-          <div id="loading">
+          <div id="loading" class="layui-hide">
             <div class="loading" index="0"></div>
             <div class="loading" index="1"></div>
             <div class="loading" index="2"></div>
@@ -48,34 +52,38 @@
             <div class="loading" index="4"></div>
           </div>
           <a href="/" onclick="return false">
-            <div id="backhome" onclick="home()">
-              <div class="backhome">
-                <div class="backhomeinner">
-                  <div class="backleft"></div>
-                  <div class="backright"></div>
-                  <div class="backbody"></div>
-                </div>
-              </div>
+            <div id="backhome" class="layui-btn layui-btn-primary" onclick="home()">
+              Back Home
             </div>
           </a>
           <div id="content">
           </div>
-          <div id="takinglonger"><blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote></div>
-          <div id="disqus_thread" style="display:none"></div>
+          <div id="takinglonger" class="layui-alert layui-bg-orange layui-hide">
+            <blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote>
+          </div>
+          <div id="disqus_thread" class="layui-hide"></div>
         </section>
 
-        <aside id="sidebar">
-          <img src="images/hooloo.png" />
+        <aside id="sidebar" class="layui-col-md3">
+          <img src="images/hooloo.png" alt="Hooloo Logo" class="layui-img">
           <p><a href="https://lwcat.cn">CC的小窝</a>.</p>
-                </aside>
+        </aside>
       </div>
-      <footer>Stay hungry, Stay foolish.</footer>
+      <footer class="layui-footer layui-text-center">Stay hungry, Stay foolish.</footer>
     </div>
-  <script src="javascripts/search.js"></script>
-  <script src="javascripts/getmd.js"></script>
-  <!--
-  <script src="/javascripts/main.js"></script>
-  -->
-  <script src="javascripts/gameoflife.js"></script>
+
+    <!-- layui JS -->
+    <script src="https://cdn.lwcat.cn/layui/layui.js"></script>
+    <script src="javascripts/search.js"></script>
+    <script src="javascripts/getmd.js"></script>
+    <script src="javascripts/gameoflife.js"></script>
+    <script>
+      layui.use(['element', 'jquery'], function(){
+        var element = layui.element;
+        var $ = layui.$;
+
+        // Additional initialization code if needed
+      });
+    </script>
   </body>
 </html>
