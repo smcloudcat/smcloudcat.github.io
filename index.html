@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,91 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta content="I write code." name="description">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/loading.css" />
 
-    <!-- layui CSS -->
-    <link rel="stylesheet" href="https://cdn.lwcat.cn/layui/layui.css" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <!-- 网站标题 -->
-    <title>云猫的小窝</title>
+    <script src="javascripts/config.js"></script>
+    <script src="javascripts/base64.js"></script>
+    <script src="javascripts/showdown.js"></script>
+    <!-- Change this to your site title -->
+    <title>Hooloo</title>
   </head>
 
-  <body class="layui-layout-body">
-    <div class="layui-layout layui-layout-admin">
+  <body>
+    <header>
+      <canvas id="gameoflife"></canvas>
+      <div class="inner">
+        <!-- Change this to your site title -->
+        <a href="/" onclick = "return false"><h1 onclick="home()">Hooloo</h1></a>
+        <span class="searchbar">
+        <input type="text" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
+        </span>
+      </div>
+    </header>
 
-      <!-- 头部区域 -->
-      <header class="layui-header">
-        <div class="layui-container">
-          <a href="/" onclick="return false">
-            <h1 class="layui-logo" onclick="home()">Hooloo</h1>
-          </a>
-          <div class="layui-input-inline" style="margin-top:10px;">
-            <input type="text" id="searchbar" class="layui-input" placeholder="Search..." onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <div class="gotop" onclick="goToTop()">
+            <div class="gotopinner">
+              <div class="topleft"></div>
+              <div class="topright"></div>
+              <div class="topbody"></div>
+            </div>
           </div>
-        </div>
-      </header>
-
-      <!-- 主体内容 -->
-      <div class="layui-body">
-        <div class="layui-container">
-          <div class="layui-row layui-col-space15">
-            
-            <!-- 主要内容区域 -->
-            <section id="main-content" class="layui-col-md9">
-              <div class="layui-hide" id="loading">
-                <div class="layui-progress" lay-showpercent="true">
-                  <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+          <div id="loading">
+            <div class="loading" index="0"></div>
+            <div class="loading" index="1"></div>
+            <div class="loading" index="2"></div>
+            <div class="loading" index="3"></div>
+            <div class="loading" index="4"></div>
+          </div>
+          <a href="/" onclick="return false">
+            <div id="backhome" onclick="home()">
+              <div class="backhome">
+                <div class="backhomeinner">
+                  <div class="backleft"></div>
+                  <div class="backright"></div>
+                  <div class="backbody"></div>
                 </div>
               </div>
-
-              <a href="/" onclick="return false">
-                <button id="backhome" class="layui-btn layui-btn-primary" onclick="home()">Back Home</button>
-              </a>
-
-              <div id="content">
-                <!-- 动态内容将在这里显示 -->
-              </div>
-
-              <div id="takinglonger" class="layui-alert layui-bg-orange layui-hide">
-                <blockquote class="layui-elem-quote">This is taking longer than normal, and there may be some problems in your network.</blockquote>
-              </div>
-
-              <div id="disqus_thread" class="layui-hide"></div>
-            </section>
-
-            <!-- 侧边栏 -->
-            <aside id="sidebar" class="layui-col-md3">
-              <img src="images/hooloo.png" alt="Hooloo Logo" class="layui-img">
-              <p><a href="https://lwcat.cn">CC的小窝</a>.</p>
-            </aside>
+            </div>
+          </a>
+          <div id="content">
           </div>
-        </div>
+          <div id="takinglonger"><blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote></div>
+          <div id="disqus_thread" style="display:none"></div>
+        </section>
+
+        <aside id="sidebar">
+          <img src="images/hooloo.png" />
+          <p>This blog is based on <a href="https://github.com/sneezry/Hooloo">Hooloo</a> using the Architect theme by <a href="http://sneezry.com">Sneezry</a> based on <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;" src="/images/cc_by-nc-sa.png" /></a>
+        </aside>
       </div>
-
-      <!-- 底部区域 -->
-      <footer class="layui-footer layui-text-center">
-        Stay hungry, Stay foolish.
-      </footer>
-
+      <footer>Stay hungry, Stay foolish.</footer>
     </div>
-
-    <!-- layui JS -->
-    <script src="https://cdn.lwcat.cn/layui/layui.js"></script>
-    <script src="javascripts/search.js"></script>
-    <script src="javascripts/getmd.js"></script>
-    <script src="javascripts/gameoflife.js"></script>
-    <script>
-      layui.use(['element', 'jquery'], function(){
-        var element = layui.element;
-        var $ = layui.$;
-
-        // 额外的初始化代码如果需要
-        $(document).ready(function(){
-          $("#loading").removeClass("layui-hide");
-          setTimeout(function(){
-            $(".layui-progress-bar").css("width", "100%").attr("lay-percent", "100%");
-          }, 2000);
-        });
-      });
-    </script>
+  <script src="javascripts/search.js"></script>
+  <script src="javascripts/getmd.js"></script>
+  <!--
+  <script src="/javascripts/main.js"></script>
+  -->
+  <script src="javascripts/gameoflife.js"></script>
   </body>
 </html>
