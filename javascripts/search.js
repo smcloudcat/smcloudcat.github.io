@@ -27,7 +27,7 @@ function search(q){
 		}
 		else{
 			var el = document.createElement('script');
-			el.src = 'https://api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=searchlist'+(branch?('&ref='+branch):'');
+			el.src = 'https://proxy.hancat.work/hancat/https/api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=searchlist'+(branch?('&ref='+branch):'');
 			document.getElementsByTagName('head')[0].appendChild(el);
 		}
 	}
@@ -42,7 +42,7 @@ function searchlist(list){
 			list.data[i-1].name = list.data[i-1].name.substr(0, list.data[i-1].name.length-suffix.length);
 		}
 		if(list.data[i-1].name.toLowerCase().indexOf(kw.toLowerCase()) != -1){
-			content.innerHTML += '<postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + encodePath(list.data[i-1].name) + '">' + getPostName(list.data[i-1].name) + '</a></postlist>';
+			content.innerHTML += '<blockquote class="layui-elem-quote"><postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + encodePath(list.data[i-1].name) + '">' + getPostName(list.data[i-1].name) + '</a></postlist></blockquote>';
 			searchResult = true;
 			currentTotal++;
 		}
@@ -69,7 +69,7 @@ function searchLoadXMLDoc(url, pname){
 				//backhome.style.display = 'block';
 				if (xmlhttp.status==200){// 200 = "OK"
 					if(xmlhttp.responseText.toLowerCase().indexOf(kw.toLowerCase()) != -1){
-						content.innerHTML += '<postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + pname.replace(/-/g, '/') + '">' + pname.split('-')[pname.split('-').length-1] + '</a></postlist>';
+						content.innerHTML += '<blockquote class="layui-elem-quote"><postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + pname.replace(/-/g, '/') + '">' + pname.split('-')[pname.split('-').length-1] + '</a></postlist></blockquote';
 						searchResult = true;
 					}
 				}
@@ -95,7 +95,7 @@ function cache(){
 		}
 		else{
 			var el = document.createElement('script');
-			el.src = 'https://api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=docache'+(branch?('&ref='+branch):'');
+			el.src = 'https://proxy.hancat.work/hancat/https/api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=docache'+(branch?('&ref='+branch):'');
 			document.getElementsByTagName('head')[0].appendChild(el);
 		}
 	}
