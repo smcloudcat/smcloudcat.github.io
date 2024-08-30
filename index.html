@@ -13,7 +13,8 @@
   <!-- Layui JS -->
   <script src="https://cdn.lwcat.cn/layui/layui.js"></script>
   
-    <script src="javascripts/config.js"></script>
+  <!-- Custom JS -->
+  <script src="javascripts/config.js"></script>
   <script src="javascripts/base64.js"></script>
   <script src="javascripts/showdown.js"></script>
   
@@ -23,36 +24,45 @@
       background-image: url('https://img.czzu.cn/u/yunlayui/TTX7AxMM.png');
       background-size: cover;
       background-attachment: fixed;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: #333;
     }
     
     .content-box {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
-      padding: 20px;
-      margin-top: 20px;
+      padding: 30px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      margin-top: 30px;
     }
 
-    header{
-      background: rgba(255, 255, 255, 0.5);
-      color: white;
-      padding: 20px;
+    header {
+      background: rgba(255, 255, 255, 0.6);
+      color: #333;
+      padding: 25px;
       text-align: center;
       border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
     }
 
     .layui-header h1 {
-      color: white;
+      color: #333;
       margin: 0;
       font-size: 2.5em;
       font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .searchbar input {
       width: 100%;
       max-width: 400px;
-      margin: 0 auto;
+      margin: 20px auto;
       display: block;
       border-radius: 5px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     }
 
     #main-content, #sidebar {
@@ -64,9 +74,10 @@
       color: white;
       cursor: pointer;
       border-radius: 5px;
-      padding: 10px;
+      padding: 12px;
       text-align: center;
       margin-bottom: 20px;
+      transition: background-color 0.3s ease;
     }
 
     .gotop:hover, #backhome:hover {
@@ -75,8 +86,8 @@
 
     #loading div {
       display: inline-block;
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       background: #1E9FFF;
       margin: 5px;
       border-radius: 50%;
@@ -96,15 +107,33 @@
       text-align: center;
       font-weight: bold;
       font-size: 1.2em;
+      margin-top: 40px;
+      color: #666;
     }
 
     aside img {
       width: 100%;
       border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    footer p {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #999;
+    }
+
+    a {
+      color: #1E9FFF;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #009688;
     }
   </style>
 
-  <!-- Change this to your site title -->
   <title>云猫的小窝</title>
 </head>
 
@@ -113,13 +142,12 @@
   <!-- Header -->
   <header class="layui-header">
     <div class="layui-container">
-      <!-- Change this to your site title -->
       <a href="/" onclick="return false">
         <h1 onclick="home()">云猫的小窝</h1>
       </a>
-      <span class="searchbar">
+      <div class="searchbar">
         <input type="text" class="layui-input" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
-      </span>
+      </div>
     </div>
   </header>
 
@@ -129,16 +157,13 @@
       
       <!-- Main Section -->
       <section id="main-content" class="layui-col-md8">
-        
-
         <div id="loading">
-          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="0"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="1"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="2"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="3"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop" index="4"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
         </div>
-
 
         <div id="content"></div>
 
@@ -154,7 +179,10 @@
 
     </div>
 
-    <footer class="layui-footer">Stay hungry, Stay foolish.</footer>
+    <footer class="layui-footer">
+      Stay hungry, Stay foolish.
+      <p>&copy; 2024 云猫的小窝</p>
+    </footer>
   </div>
 
   <!-- Other JS Files -->
