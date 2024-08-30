@@ -1,195 +1,201 @@
-<!DOCTYPE html>
-<html lang="zh-Hans-CN">
-
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta content="I write code." name="description">
-
-  <!-- Layui CSS -->
-  <link rel="stylesheet" href="https://cdn.lwcat.cn/layui/css/layui.css">
+<!DOCTYPE html>  
+<html lang="zh-Hans-CN">  
   
-  <!-- Layui JS -->
-  <script src="https://cdn.lwcat.cn/layui/layui.js"></script>
+<head>  
+  <meta charset='utf-8'>  
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
+  <meta content="I write code." name="description">  
   
-  <!-- Custom JS -->
-  <script src="javascripts/config.js"></script>
+  <!-- Layui CSS -->  
+  <link rel="stylesheet" href="https://cdn.lwcat.cn/layui/css/layui.css">  
+      <script src="javascripts/config.js"></script>
   <script src="javascripts/base64.js"></script>
   <script src="javascripts/showdown.js"></script>
-  
-  <!-- Custom CSS -->
-  <style>
-    body {
-      background-image: url('https://img.czzu.cn/u/yunlayui/TTX7AxMM.png');
-      background-size: cover;
-      background-attachment: fixed;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      color: #333;
-    }
     
-    .content-box {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-      margin-top: 30px;
-    }
-
-    header {
-      background: rgba(255, 255, 255, 0.6);
-      color: #333;
-      padding: 25px;
-      text-align: center;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
-
-    .layui-header h1 {
-      color: #333;
-      margin: 0;
-      font-size: 2.5em;
-      font-weight: bold;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .searchbar input {
-      width: 100%;
-      max-width: 400px;
-      margin: 20px auto;
-      display: block;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      padding: 10px;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    #main-content, #sidebar {
-      padding: 20px;
-    }
-
-    .gotop, #backhome {
-      background-color: #1E9FFF;
-      color: white;
-      cursor: pointer;
-      border-radius: 5px;
-      padding: 12px;
-      text-align: center;
-      margin-bottom: 20px;
-      transition: background-color 0.3s ease;
-    }
-
-    .gotop:hover, #backhome:hover {
-      background-color: #009688;
-    }
-
-    #loading div {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      background: #1E9FFF;
-      margin: 5px;
-      border-radius: 50%;
-      animation: loading 1s infinite alternate;
-    }
-
-    @keyframes loading {
-      0% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(1.5);
-      }
-    }
-
-    .layui-footer {
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.2em;
-      margin-top: 40px;
-      color: #666;
-    }
-
-    aside img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    footer p {
-      margin-top: 20px;
-      font-size: 0.9em;
-      color: #999;
-    }
-
-    a {
-      color: #1E9FFF;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: #009688;
-    }
-  </style>
-
-  <title>云猫的小窝</title>
-</head>
-
-<body class="layui-layout-body">
-
-  <!-- Header -->
-  <header class="layui-header">
-    <div class="layui-container">
-      <a href="/" onclick="return false">
-        <h1 onclick="home()">云猫的小窝</h1>
-      </a>
-      <div class="searchbar">
-        <input type="text" class="layui-input" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <div id="content-wrapper" class="layui-container content-box">
-    <div class="layui-row">
+  <!-- Custom CSS -->  
+  <style>  
+    body {  
+      background-image: url('https://img.czzu.cn/u/yunlayui/TTX7AxMM.png');  
+      background-size: cover;  
+      background-attachment: fixed;  
+      font-family: 'Helvetica Neue', Arial, sans-serif;  
+      color: #333;  
+    }  
       
-      <!-- Main Section -->
-      <section id="main-content" class="layui-col-md8">
-        <div id="loading">
-          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
-          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>
-        </div>
-
-        <div id="content"></div>
-
-        <div id="takinglonger" class="layui-elem-quote">This is taking longer than normal, and there may be some problems in your network.</div>
-
-        <div id="disqus_thread" style="display:none"></div>
-      </section>
-
-      <!-- Sidebar -->
-      <aside id="sidebar" class="layui-col-md4">
-        <p>This blog is based on <a href="https://lwcat.cn">CC的小窝</a> using the Architect theme by <a href="https://lwcat.cn">YunLayui</a>.</p>
-      </aside>
-
-    </div>
-
-    <footer class="layui-footer">
-      Stay hungry, Stay foolish.
-      <p>&copy; 2024 云猫的小窝</p>
-    </footer>
-  </div>
-
-  <!-- Other JS Files -->
-  <script src="javascripts/search.js"></script>
-  <script src="javascripts/getmd.js"></script>
-  <script src="javascripts/gameoflife.js"></script>
-
-</body>
-
+    .content-box {  
+      background: rgba(255, 255, 255, 0.95);  
+      border-radius: 15px;  
+      padding: 40px;  
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);  
+      margin-top: 50px;  
+    }  
+  
+    header {  
+      background: rgba(255, 255, 255, 0.7);  
+      color: #333;  
+      padding: 30px;  
+      text-align: center;  
+      border-radius: 15px;  
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);  
+      margin-bottom: 30px;  
+    }  
+  
+    .layui-header h1 {  
+      color: #333;  
+      margin: 0;  
+      font-size: 3em;  
+      font-weight: bold;  
+      text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);  
+    }  
+  
+    .searchbar input {  
+      width: 100%;  
+      max-width: 500px;  
+      margin: 25px auto;  
+      display: block;  
+      border-radius: 7px;  
+      border: 1px solid #ccc;  
+      padding: 12px;  
+      box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);  
+    }  
+  
+    #main-content, #sidebar {  
+      padding: 30px;  
+    }  
+  
+    #sidebar {  
+      background: rgba(255, 255, 255, 0.8);  
+      border-radius: 10px;  
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  
+      margin-top: 20px;  
+    }  
+  
+    .gotop, #backhome {  
+      background-color: #1E9FFF;  
+      color: white;  
+      cursor: pointer;  
+      border-radius: 7px;  
+      padding: 15px;  
+      text-align: center;  
+      margin-bottom: 25px;  
+      transition: background-color 0.3s ease;  
+    }  
+  
+    .gotop:hover, #backhome:hover {  
+      background-color: #009688;  
+    }  
+  
+    #loading div {  
+      display: inline-block;  
+      width: 15px;  
+      height: 15px;  
+      background: #1E9FFF;  
+      margin: 7px;  
+      border-radius: 50%;  
+      animation: loading 1s infinite alternate;  
+    }  
+  
+    @keyframes loading {  
+      0% {  
+        transform: scale(1);  
+      }  
+      100% {  
+        transform: scale(1.7);  
+      }  
+    }  
+  
+    .layui-footer {  
+      text-align: center;  
+      font-weight: bold;  
+      font-size: 1.3em;  
+      margin-top: 50px;  
+      color: #666;  
+      background: rgba(255, 255, 255, 0.8);  
+      padding: 20px;  
+      border-radius: 10px;  
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  
+    }  
+  
+    aside img {  
+      width: 100%;  
+      border-radius: 10px;  
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);  
+    }  
+  
+    footer p {  
+      margin-top: 20px;  
+      font-size: 0.9em;  
+      color: #999;  
+    }  
+  
+    a {  
+      color: #1E9FFF;  
+      text-decoration: none;  
+      transition: color 0.3s ease;  
+    }  
+  
+    a:hover {  
+      color: #009688;  
+    }  
+  </style>  
+  
+  <title>云猫的小窝</title>  
+</head>  
+  
+<body class="layui-layout-body">  
+  
+  <!-- Header -->  
+  <header class="layui-header">  
+    <div class="layui-container">  
+      <a href="/" onclick="return false">  
+        <h1 onclick="home()">云猫的小窝</h1>  
+      </a>  
+      <div class="searchbar">  
+        <input type="text" class="layui-input" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">  
+      </div>  
+    </div>  
+  </header>  
+  
+  <!-- Main Content -->  
+  <div id="content-wrapper" class="layui-container content-box">  
+    <div class="layui-row">  
+        
+      <!-- Main Section -->  
+      <section id="main-content" class="layui-col-md8">  
+        <div id="loading">  
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>  
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>  
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>  
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>  
+          <div class="layui-anim layui-anim-rotate layui-anim-loop"></div>  
+        </div>  
+  
+        <div id="content"></div>  
+  
+        <div id="takinglonger" class="layui-elem-quote">This is taking longer than normal, and there may be some problems in your network.</div>  
+  
+        <div id="disqus_thread" style="display:none"></div>  
+      </section>  
+  
+      <!-- Sidebar -->  
+      <aside id="sidebar" class="layui-col-md4">  
+        <p>This blog is based on <a href="https://lwcat.cn">CC的小窝</a> using the Architect theme by <a href="https://lwcat.cn">YunLayui</a>.</p>  
+      </aside>  
+  
+    </div>  
+  
+    <footer class="layui-footer">  
+      Stay hungry, Stay foolish.  
+      <p>&copy; 2024 云猫的小窝</p>  
+    </footer>  
+  </div>  
+  
+  <!-- Other JS Files -->  
+  <script src="javascripts/search.js"></script>  
+  <script src="javascripts/getmd.js"></script>  
+  <script src="javascripts/gameoflife.js"></script>  
+  
+</body>  
+  
 </html>
