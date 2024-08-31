@@ -7,6 +7,7 @@ if(path == '/'){path = ''; window.history.replacetate(null, '', '/');page=1;}
 else if(path && !location.search){window.history.replaceState(null, '', (isroot?'':('/'+repos))+'/#!'+path);}
 var converter = new Showdown.converter();
 var content = document.getElementById('content');
+var dis = document.getElementById('disqus_thread');
 var loading = document.getElementById('loading');
 var backhome = document.getElementById('backhome');
 var xmlhttp;
@@ -20,10 +21,24 @@ var isroot=((repos.indexOf('github.com')==-1 && repos.indexOf('github.io')==-1)?
 main();
 
 function main(){
+	var disqusCounts = document.getElementsByName('commentscount');
+	for(var i=0; i<disqusCounts.length; i++){
+		commentscount[Number(disqusCounts[i].id.substr(5))] = disqusCounts[i].innerText;
+	}
 	content.innerHTML = '';
 	loading.style.display = 'block';
 	if(path.split('/')[1] == 'search'){
 		search(path.split('/')[2]);
+	}
+	else if(path && path.split('/')[1] != 'page'){
+		disqus_url = hostbase + lowerCase(path);
+		//disqus_url = disqus_url.toLowerCase();
+		showpost(path);
+		(function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
 	}
 	else{
 		//backhome.style.display = 'none';
@@ -149,7 +164,7 @@ function showlist(list){
 		if(suffix && list.data[i-1].name.substr(-suffix.length)==suffix){
 			list.data[i-1].name = list.data[i-1].name.substr(0, list.data[i-1].name.length-suffix.length);
 		}
-		txt += '<blockquote class="layui-elem-quote"><postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + encodePath(list.data[i-1].name, true) + '">' + getPostName(list.data[i-1].name) + '</a><div class="post_info"><span class="post_date">'+list.data[i-1].name.split('-')[0]+'-'+list.data[i-1].name.split('-')[1]+'-'+list.data[i-1].name.split('-')[2]+'</span>&nbsp;&nbsp;</div></postlist></blockquote><script src="https://giscus.app/client.js" data-repo="smcloudcat/smcloudcat.github.io" data-repo-id="R_kgDOMphNWw" data-category="Announcements" data-category-id="DIC_kwDOMphNW84CiHMe" data-mapping="url" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous" async></script>';
+		txt += '<blockquote class="layui-elem-quote"><postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + encodePath(list.data[i-1].name, true) + '">' + getPostName(list.data[i-1].name) + '</a><div class="post_info"><span class="post_date">'+list.data[i-1].name.split('-')[0]+'-'+list.data[i-1].name.split('-')[1]+'-'+list.data[i-1].name.split('-')[2]+'</span></div></postlist></blockquote>';
 	}
 	if(page==1 && page*20<list.data.length){
 		txt += '<postlist><a class="prev_page" href="'+(isroot?'':('/'+repos))+'/#!/page/'+(page+1)+'">←较早的文章</a><div style="clear:both"></div></postlist>';
@@ -162,7 +177,12 @@ function showlist(list){
 	}
 	loading.style.display = 'none';
 	content.innerHTML = txt;
-
+	(function () {
+        var s = document.createElement('script'); s.async = true;
+		s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
 }
 
 function encodePath(path, isdecode){
