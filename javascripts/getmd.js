@@ -209,6 +209,11 @@ function getPostName(path){
     return decodeURIComponent(path.split('/').pop().split('-').slice(3).join('-')).replace(/^\s+|\s+$/g, '');
 }
 
-function decodeUtf8(text){
-    return decodeURIComponent(escape(text));
+function decodeUtf8(text) {
+    try {
+        return decodeURIComponent(escape(text));
+    } catch (e) {
+        console.error("Error decoding URI component:", e);
+        return text; // Return the original text if decoding fails
+    }
 }
