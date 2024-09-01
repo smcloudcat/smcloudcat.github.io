@@ -24,7 +24,7 @@
     }  
       
     .content-box {  
-      background: rgba(255, 255, 255, 0.95);  
+      background: rgba(255, 255, 255, 0.7);  
       border-radius: 15px;  
       padding: 15px;  
       box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);  
@@ -51,8 +51,8 @@
   
     .searchbar input {  
       width: 100%;  
-      max-width: 500px;  
-      margin: 15px auto;  
+      max-width: 300px;  
+      margin: 10px auto;  
       display: block;  
       border-radius: 7px;  
       border: 1px solid #ccc;  
@@ -64,6 +64,10 @@
     #content-wrapper {  
       padding: 10px;  
     }  
+
+    #contentzz {
+    padding-top: 15px;
+    }
   
     .gotop, #backhome {  
       background-color: #1E9FFF;  
@@ -155,21 +159,21 @@
 <body class="layui-layout-body">  
   
   <!-- Header -->  
-  <header class="layui-header">  
-    <div class="layui-container">  
+  <div class="layui-container ">
+  <header class="layui-header ">  
+    <div class="layui-container ">  
       <a href="/" onclick="return false">  
         <h1 onclick="home()">云猫的小窝</h1>  
       </a>  
-      <div class="searchbar">  
-        <input type="text" class="layui-input" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">  
-      </div>  
     </div>  
-  </header>  
+  </header>  </div>
   
   <!-- Main Content -->  
   <div id="content-wrapper" class="layui-container content-box">  
     <div class="layui-row layui-col-space15">  
-        
+      <div class="searchbar">  
+        <input type="text" class="layui-input" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">  
+      </div>  
       <!-- Main Section -->  
       <section id="main-content" class="layui-col-md15 layui-col-xs12">  
         <div id="loading">  
@@ -185,21 +189,19 @@
         <div id="takinglonger" class="layui-elem-quote">This is taking longer than normal, and there may be some problems in your network.</div>  
   
         <div id="disqus_thread" style="display:none"></div>  
+        <div id="contentzz"></div> 
       </section>  
-   
-  
     </div>  
   
-    <footer class="layui-footer">  
-      我心疼你的不容易，你宠着我的小情绪。
-      <p>This blog is based on <a href="https://lwcat.cn">&copy;CC的小窝</a> using the Architect theme by <a href="https://lwcat.cn">YunLayui</a>.</p>  
-    </footer>  
-  </div>  
-  
+    
+  </div>    <div class="layui-container ">
+  <footer class="layui-footer">  
+    我心疼你的不容易，你宠着我的小情绪。
+    <p>This blog is based on <a href="https://lwcat.cn">&copy;CC的小窝</a> using the Architect theme by <a href="https://lwcat.cn">YunLayui</a>.</p>  
+  </footer>    </div>
   <!-- Other JS Files -->  
   <script src="javascripts/search.js"></script>  
-  <script src="javascripts/getmd.js"></script>  
-  <script src="javascripts/gameoflife.js"></script>  
+  <script src="javascripts/getmd.js"></script>   
   
 </body>  
   
