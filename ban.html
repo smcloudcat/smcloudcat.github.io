@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>封禁账号列表</title>
+    <link rel="stylesheet" href="https://cdn.lwcat.cn/layui/css/layui.css">
+    <style>
+        body {
+            background-image: url('https://img.czzu.cn/u/zzza/xlFVazyu.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .layui-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .layui-table {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .layui-table th, .layui-table td {
+            color: white;
+        }
+
+        #pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .layui-container {
+                padding: 10px;
+                margin-top: 20px;
+            }
+
+            .layui-table th, .layui-table td {
+                font-size: 14px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-container">
+    <h1>封禁账号列表</h1>
+    <table class="layui-table" id="banTable">
+        <thead>
+            <tr>
+                <th>账号</th>
+                <th>原因</th>
+                <th>封禁时长（天）</th>
+                <th>封禁时间</th>
+                <th>管理员</th>
+            </tr>
+        </thead>
+        <tbody id="banTableBody">
+            <!-- 动态生成封禁记录 -->
+        </tbody>
+    </table>
+    <div id="pagination"></div> <!-- 分页组件容器 -->
+</div>
+
+<footer>© 2024 CC的小窝-lwcat.cn. All rights reserved.</footer>
+
+<script src="https://cdn.lwcat.cn/layui/layui.js"></script>
+<script>
+    layui.use(['jquery', 'laypage'], function() {
+        var $ = layui.$;
+        var laypage = layui.laypage;
+
+        function loadPageData(curr) {
+            $.getJSON('https://lwcat.cn/banapi.php', {
+                page: curr,
+                limit: 10
+            }, function(data) {
+                var tbody = $('#banTableBody');
+                tbody.empty(); // 清空现有数据
+                $.each(data.records, function(index, ban) {
+                    var row = '<tr>' +
+                        '<td>' + ban.account_name + '</td>' +
+                        '<td>' + ban.reason + '</td>' +
+                        '<td>' + ban.ban_duration + '</td>' +
+                        '<td>' + ban.banned_at + '</td>' +
+                        '<td>' + ban.admin_name + '</td>' +
+                        '</tr>';
+                    tbody.append(row);
+                });
+
+                // 执行分页组件
+                laypage.render({
+                    elem: 'pagination',
+                    count: data.total, // 总记录数
+                    limit: 10,
+                    curr: curr,
+                    jump: function(obj, first) {
+                        if (!first) {
+                            loadPageData(obj.curr); // 递归调用
+                        }
+                    }
+                });
+            });
+        }
+
+        loadPageData(1); // 初始化第一页数据
+    });
+</script>
+
+</body>
+</html>
