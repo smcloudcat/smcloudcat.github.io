@@ -163,9 +163,10 @@ function showpost(path) {
     giscusScript.setAttribute("data-strict", "0");
     giscusScript.setAttribute("data-reactions-enabled", "1");
     giscusScript.setAttribute("data-emit-metadata", "0");
-    giscusScript.setAttribute("data-input-position", "bottom");
+    giscusScript.setAttribute("data-input-position", "top");
     giscusScript.setAttribute("data-theme", "preferred_color_scheme");
-    giscusScript.setAttribute("data-lang", "zh-CN");
+    giscusScript.setAttribute("data-lang", "zh-TW");
+    giscusScript.setAttribute("data-loading", "lazy");
     giscusScript.setAttribute("crossorigin", "anonymous");
     giscusScript.setAttribute("async", "");
     document.getElementById('contentzz').appendChild(giscusScript);
